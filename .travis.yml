@@ -1,0 +1,36 @@
+language: generic
+sudo: required
+services:
+  - docker
+  
+before_install:
+  - docker build -t marksonis/react-test -f ./client/Dockerfile.dev ./client
+  
+scripts:
+  - docker run -e CI=true marksonis/react-test npm test
+  
+after_success:
+  - docker build -t marksonis/multi-client ./client
+  - docker build -t marksonis/multi-nginx ./nginx
+  - docker build -t marksonis/multi-server ./server
+  - docker build -t marksonis/multi-worker ./worker
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
