@@ -1,5 +1,6 @@
-language: generic
 sudo: required
+language: generic
+
 services:
   - docker
   
@@ -20,24 +21,4 @@ after_success:
   - docker push marksonis/multi-client
   - docker push marksonis/multi-nginx
   - docker push marksonis/multi-server
-  - docker push arksonis/multi-worker
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  - docker push marksonis/multi-worker
