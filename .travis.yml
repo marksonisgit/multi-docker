@@ -14,6 +14,13 @@ after_success:
   - docker build -t marksonis/multi-nginx ./nginx
   - docker build -t marksonis/multi-server ./server
   - docker build -t marksonis/multi-worker ./worker
+  # Log in to docker hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push production images to docker hub
+  - docker push marksonis/multi-client
+  - docker push marksonis/multi-nginx
+  - docker push marksonis/multi-server
+  - docker push arksonis/multi-worker
   
   
   
