@@ -5,20 +5,20 @@ services:
   - docker
   
 before_install:
-  - docker build -t marksonis/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t notabotnot/react-test -f ./client/Dockerfile.dev ./client
   
 scripts:
-  - docker run -e CI=true marksonis/react-test npm test
+  - docker run -e CI=true notabotnot/react-test npm test
   
 after_success:
-  - docker build -t marksonis/multi-client ./client
-  - docker build -t marksonis/multi-nginx ./nginx
-  - docker build -t marksonis/multi-server ./server
-  - docker build -t marksonis/multi-worker ./worker
+  - docker build -t notabotnot/multi-client ./client
+  - docker build -t notabotnot/multi-nginx ./nginx
+  - docker build -t notabotnot/multi-server ./server
+  - docker build -t notabotnot/multi-worker ./worker
   # Log in to docker hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push production images to docker hub
-  - docker push marksonis/multi-client
-  - docker push marksonis/multi-nginx
-  - docker push marksonis/multi-server
-  - docker push marksonis/multi-worker
+  - docker push notabotnot/multi-client
+  - docker push notabotnot/multi-nginx
+  - docker push notabotnot/multi-server
+  - docker push notabotnot/multi-worker
