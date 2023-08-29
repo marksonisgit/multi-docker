@@ -3,34 +3,34 @@ language: generic
 
 services:
   - docker
-  
+
 before_install:
-  - docker build -t notabotnot/react-test -f ./client/Dockerfile.dev ./client
-  
-scripts:
-  - docker run -e CI=true notabotnot/react-test npm test
-  
+  - docker build -t rallycoding/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true rallycoding/react-test npm test
+
 after_success:
-  - docker build -t notabotnot/multi-client ./client
-  - docker build -t notabotnot/multi-nginx ./nginx
-  - docker build -t notabotnot/multi-server ./server
-  - docker build -t notabotnot/multi-worker ./worker
-  # Log in to docker hub
+  - docker build -t rallycoding/multi-client ./client
+  - docker build -t rallycoding/multi-nginx ./nginx
+  - docker build -t rallycoding/multi-server ./server
+  - docker build -t rallycoding/multi-worker ./worker
+  # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Push production images to docker hub
-  - docker push notabotnot/multi-client
-  - docker push notabotnot/multi-nginx
-  - docker push notabotnot/multi-server
-  - docker push notabotnot/multi-worker
-  
+  # Take those images and push them to docker hub
+  - docker push rallycoding/multi-client
+  - docker push rallycoding/multi-nginx
+  - docker push rallycoding/multi-server
+  - docker push rallycoding/multi-worker
+
 deploy:
   provider: elasticbeanstalk
-  region: 'eu-north-1'
-  app: 'complex'
-  env: 'Complex-env'
-  bucket_name: 'elasticbeanstalk-eu-north-1-227100645778'
-  bucket_path: 'Elastic Beanstalk'
+  region: 'us-east-1'
+  app: 'multi-docker'
+  env: 'MultiDocker-env'
+  bucket_name: 'elasticbeanstalk-us-east-1-923445559289'
+  bucket_path: 'docker-multi'
   on:
-    branch: master
+    branch: main
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
